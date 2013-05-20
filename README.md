@@ -1,4 +1,4 @@
-gradle-presentation
-===================
+Creates a HellWorld class
 
-Example covered in the Gradle presentation.. 
+run: gradle jar
+run: unzip

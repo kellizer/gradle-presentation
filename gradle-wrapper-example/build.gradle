@@ -1,0 +1,8 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.6'
+}
+
+mainClassName = "com.dgug.HelloWorld"
