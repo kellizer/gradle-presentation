@@ -1,0 +1,15 @@
+configurations {
+    spi
+}
+dependencies {
+    compile project(':shared')
+}
+task dgugJar(type: Jar) {
+    baseName = 'api-dgug'
+    dependsOn classes
+    from sourceSets.main.output
+    include('org/dgug/sample/api/**')
+}
+artifacts {
+    spi dgugJar
+}
