@@ -32,6 +32,7 @@ task transformMountainData(type: MountainTransformation) {
     inputFile = file('mountains.xml')
     outputDirectory = new File(buildDir, 'generated')
     separator = "->"
+
 }
 
 class MountainTransformation extends DefaultTask {
