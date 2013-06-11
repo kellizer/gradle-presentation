@@ -1,0 +1,43 @@
+apply plugin: 'java'
+
+repositories
+        {
+            mavenCentral()
+        }
+
+dependencies
+        {
+            testCompile "junit:junit:4.7"
+        }
+
+task transformMountainData(type: MountainTransformation) {
+    inputFile = file('mountains.xml')
+    outputDirectory = new File(buildDir, 'generated')
+    separator = "->"
+}
+
+class MountainTransformation extends DefaultTask {
+    @InputFile
+    File inputFile
+
+    @Input
+    String separator
+
+    @OutputDirectory
+    File outputDirectory
+
+    @TaskAction
+    public void main() {
+        println "Transforming source file."
+        outputDirectory.mkdirs()
+        def mountains = new XmlParser().parse(inputFile)
+        mountains.mountain.each { mountain ->
+            def name = mountain.name[0].text()
+            def height = mountain.height[0].text()
+            def destFile = new File(outputDirectory, "${name}.txt")
+            destFile.text = "$name $separator ${height}\n"
+        }
+    }
+
+
+}
