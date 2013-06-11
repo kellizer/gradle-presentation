@@ -1,0 +1,16 @@
+apply plugin: 'application'
+
+
+version = "1.0"
+
+mainClassName = 'com.dgug.main.Person'
+
+repositories
+        {
+            mavenCentral()
+        }
+
+dependencies
+        {
+            testCompile "junit:junit:4+"
+        }
