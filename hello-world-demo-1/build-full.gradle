@@ -1,0 +1,69 @@
+task helloWorld {
+    doLast {
+        println 'Hello world!'
+    }
+
+}
+
+task twist() <<
+        {
+            print("Twist ")
+        }
+
+task and(dependsOn: 'twist') <<
+        {
+            print " and "
+        }
+
+task shout(dependsOn: 'and') <<
+        {
+            println " shout"
+        }
+
+task boogie
+
+boogie.dependsOn 'shout'
+
+task disableMe << {
+    println 'This should not be printed if the task is disabled.'
+}
+disableMe.enabled = false
+
+/**
+ *
+ */
+task upper << {
+    def someString = 'mY_nAmE'
+    println "Original: " + someString
+    println "Upper case: " + someString.toUpperCase()
+}
+
+
+task hello << {
+    println 'Hello Earth'
+}
+hello.doFirst {
+    println 'Hello Venus'
+}
+hello.doLast {
+    println 'Hello Mars'
+}
+hello << {
+    println 'Hello Jupiter'
+}
+
+task distribution << {
+    println "We build the zip with version=$version"
+}
+
+task release(dependsOn: 'distribution') << {
+    println 'We release now'
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        version = '1.0'
+    } else {
+        version = '1.0-SNAPSHOT'
+    }
+}
